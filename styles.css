@@ -1,1 +1,12 @@
+body{
+    background-color: darkslateblue;
+    color:aliceblue;
+}
+p{
+    line-height: 2em;
 
+}
+img{
+    width: 200px;
+    float: right;
+}
