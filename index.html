@@ -1,67 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ram Website</title>
+    <title>JavaScript Number Guessing Game</title>
     <link rel="stylesheet" href="styles.css">
-</head>
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>🎯 Number Guessing Game</h1>
+        <p id="date" class="date-time"></p>
+      </header>
 
-<body>
-    <div id="container">
-        <header>
-            <h1>Ram</h1>
-            <h2>Canyon Crest Academy</h2>
-        </header>
+      <section class="name-section">
+        <h2>Player Setup</h2>
+        <div class="input-group">
+          <input type="text" id="nameInput" placeholder="Enter your name" class="input-field">
+          <button id="setNameBtn" class="btn btn-primary">Set Name</button>
+        </div>
+        <p id="welcomeMsg" class="welcome-text"></p>
+      </section>
 
-        <main>
-            <section>
-                <h3>Who I Am</h3>
-                <img src="images/download (1).jpeg" alt="Ram's photo" id="pic1">
-                <p class="intro-text">
-                    My name is Ramcharan Chirapu, but most people know me as Ram. I'm a junior at 
-                    <a href="https://cc.sduhsd.net/" target="_blank">Canyon Crest Academy</a>, and I live 
-                    with my parents and my older sibling, who's currently in college. I would describe myself 
-                    as a somewhat extroverted person who enjoys being around others, but I also have moments 
-                    where I prefer to be alone and recharge. I try to stay calm in most situations and not let 
-                    stress get the best of me, which helps me stay focused even when things get overwhelming. 
-                    I consider myself a kind and understanding person who values peace and balance in my daily life.
-                </p>
-            </section>
+      <section class="game-setup">
+        <h2>Select Difficulty</h2>
+        <div class="level-options">
+          <label class="radio-label">
+            <input type="radio" name="level" id="e" value="3" checked>
+            <span class="radio-custom">Easy (1-3)</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="level" id="m" value="10">
+            <span class="radio-custom">Medium (1-10)</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="level" id="h" value="100">
+            <span class="radio-custom">Hard (1-100)</span>
+          </label>
+        </div>
+        <button id="playBtn" class="btn btn-large btn-primary" disabled>Start Game</button>
+      </section>
 
-            <section>
-                <h3>My Interests and What They Mean to Me</h3>
-                <img src="images/images (1).jpeg" alt="Basketball court" id="pic2">
-                <p class="highlight">
-                    Some of the things that make me who I am are, for example, playing 
-                    <a href="https://www.nba.com/" target="_blank">basketball</a>, spending time with my 
-                    friends, and playing video games. Playing basketball has helped me learn teamwork and 
-                    perseverance in the face of challenges, whereas spending time with friends keeps me 
-                    grounded and attached. I also enjoy listening to music and going for walks when I need 
-                    some alone time to relax and clear my head. They make me think about my thoughts and 
-                    recharge when the world looks to be too much. My hobbies and interests teach me that 
-                    the balance between being on the go and being alone is what an individual should develop.
-                </p>
-            </section>
+      <section class="game-area">
+        <h2 id="msg" class="game-message">Enter your name to start</h2>
+        <div class="guess-controls">
+          <input type="text" id="guess" class="input-field guess-input" placeholder="Enter your guess" disabled>
+          <button id="guessBtn" class="btn btn-success" disabled>Guess</button>
+        </div>
+        
+        <div class="hint-section">
+          <button id="hintBtn" class="btn btn-hint" disabled>💡 Use Hint (<span id="hintCount">3</span> left)</button>
+          <p id="hintMsg" class="hint-message"></p>
+        </div>
 
-            <section>
-                <h3>Learning About Comparison and Self-Acceptance</h3>
-                <img src="images/download (2).jpeg" alt="Inspirational quote" id="pic3">
-                <p class="bold">
-                    Lately, I've been thinking a lot about how easy it is to compare ourselves to others, 
-                    especially in high school. The quote <a href="https://www.psychologytoday.com/us/blog/mindful-musings/202201/comparison-is-the-thief-joy" target="_blank">"Comparison is the thief of joy"</a> really connects with me because it shows how 
-                    comparison can take away our happiness and confidence. I've had moments where I've doubted 
-                    myself or felt like I wasn't doing enough compared to others, but I've realized that everyone 
-                    has their own strengths and weaknesses. Negative comparisons can really affect someone's 
-                    mental state and make them forget what they're good at. I've been learning to focus more on 
-                    my own progress and to appreciate the things that make me who I am.
-                </p>
-            </section>
-        </main>
+        <div class="action-buttons">
+          <button id="giveUp" class="btn btn-danger" disabled>Give Up</button>
+        </div>
 
-        <footer>
-            <p>&copy; 2025 Ram Chirapu. All rights reserved.</p>
-        </footer>
+        <p id="tempHint" class="temp-hint"></p>
+        <p id="roundTimer" class="round-timer"></p>
+      </section>
+
+      <section class="stats-section">
+        <h2>📊 Statistics</h2>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Total Wins</div>
+            <div class="stat-value" id="wins">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Average Score</div>
+            <div class="stat-value" id="avgScore">-</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Fastest Game</div>
+            <div class="stat-value" id="fastestGame">-</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Avg Time</div>
+            <div class="stat-value" id="avgTime">-</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="leaderboard-section">
+        <h2>🏆 Leaderboard (Best Scores)</h2>
+        <ol class="leaderboard-list">
+          <li name="leaderboard">-</li>
+          <li name="leaderboard">-</li>
+          <li name="leaderboard">-</li>
+        </ol>
+      </section>
     </div>
-</body>
+  </body>
 </html>
